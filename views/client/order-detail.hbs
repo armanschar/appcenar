@@ -1,0 +1,154 @@
+
+<div class="min-h-[calc(100vh-4rem)] bg-gray-50 py-8">
+    <div class="max-w-4xl mx-auto px-4">
+        
+ 
+        <div class="mb-8">
+            <div class="flex items-center space-x-4 mb-4">
+                <a href="/client/orders" class="bg-white p-2 rounded-lg shadow hover:shadow-md transition duration-200">
+                    <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+                    </svg>
+                </a>
+                <div>
+                    <h1 class="text-3xl font-bold text-gray-800">Detalle del Pedido</h1>
+                    <p class="text-gray-600">{{order.commerce.commerceName}}</p>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="bg-white rounded-xl shadow-lg p-6 mb-6">
+            <div class="flex items-center justify-between mb-6">
+                <div class="flex items-center space-x-4">
+
+                    <div class="w-16 h-16 bg-gray-200 rounded-lg flex items-center justify-center">
+                        {{#if order.commerce.commerceLogo}}
+                            <img 
+                                src="{{order.commerce.commerceLogo}}" 
+                                alt="{{order.commerce.commerceName}}" 
+                                class="w-full h-full object-cover rounded-lg"
+                            >
+                        {{else}}
+                            <div class="text-2xl text-gray-400">
+                                {{#if order.commerce.commerceType.icon}}{{order.commerce.commerceType.icon}}{{else}}🏪{{/if}}
+                            </div>
+                        {{/if}}
+                    </div>
+                    
+                    <div>
+                        <h2 class="text-xl font-bold text-gray-800">{{order.commerce.commerceName}}</h2>
+                        <p class="text-sm text-gray-500">{{order.commerce.commerceType.name}}</p>
+                    </div>
+                </div>
+
+
+                <div class="text-right">
+                    {{#if (Equals order.status "Pendiente")}}
+                        <span class="inline-flex items-center px-4 py-2 rounded-full text-sm font-medium bg-yellow-100 text-yellow-800">
+                            <span class="w-3 h-3 bg-yellow-400 rounded-full mr-2"></span>
+                            Pendiente
+                        </span>
+                    {{else if (Equals order.status "En Proceso")}}
+                        <span class="inline-flex items-center px-4 py-2 rounded-full text-sm font-medium bg-orange-100 text-orange-800">
+                            <span class="w-3 h-3 bg-orange-400 rounded-full mr-2"></span>
+                            En Proceso
+                        </span>
+                    {{else if (Equals order.status "Completado")}}
+                        <span class="inline-flex items-center px-4 py-2 rounded-full text-sm font-medium bg-green-100 text-green-800">
+                            <span class="w-3 h-3 bg-green-400 rounded-full mr-2"></span>
+                            Completado
+                        </span>
+                    {{else}}
+                        <span class="inline-flex items-center px-4 py-2 rounded-full text-sm font-medium bg-gray-100 text-gray-800">
+                            <span class="w-3 h-3 bg-gray-400 rounded-full mr-2"></span>
+                            {{order.status}}
+                        </span>
+                    {{/if}}
+                </div>
+            </div>
+
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 pt-4 border-t border-gray-200">
+                <div class="text-center">
+                    <div class="text-sm text-gray-500 mb-1">Fecha del Pedido</div>
+                    <div class="font-semibold text-gray-800">{{order.formattedDate}}</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-sm text-gray-500 mb-1">Cantidad de Productos</div>
+                    <div class="font-semibold text-gray-800">{{order.itemCount}} {{#if (Equals order.itemCount 1)}}producto{{else}}productos{{/if}}</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-sm text-gray-500 mb-1">Total</div>
+                    <div class="font-bold text-xl text-orange-600">${{order.formattedTotal}}</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-white rounded-xl shadow-lg p-6">
+            <h3 class="text-lg font-bold text-gray-800 mb-4">Productos del Pedido</h3>
+            
+            {{#if order.items.length}}
+                <div class="space-y-4">
+                    {{#each order.items}}
+                        <div class="flex items-center space-x-4 p-4 border border-gray-100 rounded-lg hover:bg-gray-50 transition duration-200">
+
+                            <div class="flex-shrink-0">
+                                <div class="w-16 h-16 bg-gray-200 rounded-lg flex items-center justify-center">
+                                    {{#if this.product.productImage}}
+                                        <img 
+                                            src="{{this.product.productImage}}" 
+                                            alt="{{this.product.productName}}" 
+                                            class="w-full h-full object-cover rounded-lg"
+                                        >
+                                    {{else}}
+                                        <div class="text-2xl text-gray-400">🍽️</div>
+                                    {{/if}}
+                                </div>
+                            </div>
+
+                            <div class="flex-1 min-w-0">
+                                <h4 class="text-base font-semibold text-gray-800 mb-1">{{this.product.productName}}</h4>
+                                {{#if this.product.productDescription}}
+                                    <p class="text-sm text-gray-500 mb-2">{{this.product.productDescription}}</p>
+                                {{/if}}
+                                <div class="flex items-center space-x-2 text-sm text-gray-600">
+                                    <span>Cantidad: {{this.quantity}}</span>
+                                    <span>•</span>
+                                    <span>Precio unitario: ${{this.formattedUnitPrice}}</span>
+                                </div>
+                            </div>
+
+                            <div class="text-right">
+                                <div class="text-lg font-bold text-gray-800">
+                                    ${{this.formattedSubtotal}}
+                                </div>
+                            </div>
+                        </div>
+                    {{/each}}
+                </div>
+
+                <div class="mt-6 pt-4 border-t border-gray-200">
+                    <div class="flex justify-between items-center">
+                        <span class="text-lg font-semibold text-gray-800">Total del Pedido:</span>
+                        <span class="text-2xl font-bold text-orange-600">${{order.formattedTotal}}</span>
+                    </div>
+                </div>
+            {{else}}
+                <div class="text-center py-8">
+                    <div class="text-4xl text-gray-300 mb-4">📦</div>
+                    <p class="text-gray-500">No se encontraron productos en este pedido.</p>
+                </div>
+            {{/if}}
+        </div>
+
+        <div class="mt-6">
+            <a 
+                href="/client/orders" 
+                class="bg-gray-500 text-white px-6 py-3 rounded-lg font-semibold hover:bg-gray-600 transition duration-200"
+            >
+                ← Volver a Mis Pedidos
+            </a>
+        </div>
+    </div>
+</div>

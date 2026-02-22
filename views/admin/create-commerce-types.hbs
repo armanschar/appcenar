@@ -1,0 +1,23 @@
+<div class="max-w-3xl mx-auto px-4">
+  <h1 class="text-3xl font-bold mb-4">Crear Tipo de Comercio</h1>
+
+  <form action="/admin/tipos-comercios/crear" method="POST" enctype="multipart/form-data" class="bg-white p-6 rounded shadow">
+    <div class="mb-4">
+      <label class="block mb-2">Nombre</label>
+      <input type="text" name="name" required="required" class="w-full border px-3 py-2 rounded">
+    </div>
+    <div class="mb-4">
+      <label class="block mb-2">Descripción</label>
+      <input type="text" name="description" required="required" class="w-full border px-3 py-2 rounded">
+    </div>
+    <div class="mb-4">
+      <label class="block mb-2">Icono</label>
+      <input type="file" name="icon" accept="image/*" required="required" class="w-full">
+    </div>
+
+    <div class="flex justify-between">
+      <a href="/admin/tipos-comercios" class="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600">← Volver</a>
+      <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Crear tipo</button>
+    </div>
+  </form>
+</div>

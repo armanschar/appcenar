@@ -1,0 +1,42 @@
+<div class="max-w-6xl mx-auto px-4">
+  <h1 class="text-3xl font-bold text-gray-800 mb-4">Listado de Delivery</h1>
+
+  <table class="min-w-full bg-white border border-gray-200">
+    <thead>
+      <tr class="bg-orange-100 text-gray-800">
+        <th class="py-2 px-4 border-b">Nombre</th>
+        <th class="py-2 px-4 border-b">Apellido</th>
+        <th class="py-2 px-4 border-b">Pedidos</th>
+        <th class="py-2 px-4 border-b">Teléfono</th>
+        <th class="py-2 px-4 border-b">Correo</th>
+        <th class="py-2 px-4 border-b">Acción</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each delivery}}
+      <tr class="text-center border-b">
+        <td class="py-2 px-4">{{this.name}}</td>
+        <td class="py-2 px-4">{{this.lastName}}</td>
+        <td class="py-2 px-4">{{this.totalPedidos}}</td>
+        <td class="py-2 px-4">{{this.phone}}</td>
+        <td class="py-2 px-4">{{this.email}}</td>
+        <td class="py-2 px-4">
+          {{#if this.isActive}}
+            <form method="POST" action="/admin/delivery/inactivar/{{this.id}}">
+              <button type="submit" class="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600">Inactivar</button>
+            </form>
+          {{else}}
+            <form method="POST" action="/admin/delivery/activar/{{this.id}}">
+              <button type="submit" class="bg-green-500 text-white px-3 py-1 rounded hover:bg-green-600">Activar</button>
+            </form>
+          {{/if}}
+        </td>
+      </tr>
+      {{/each}}
+    </tbody>
+  </table>
+
+  <div class="mt-4">
+    <a href="/admin/dashboard" class="bg-orange-500 text-white px-4 py-2 rounded hover:bg-orange-600 inline-block">← Volver al Dashboard</a>
+  </div>
+</div>

@@ -1,0 +1,150 @@
+<div class="container mx-auto px-4 py-6">
+  <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+    <div class="flex items-center justify-between">
+      <div class="flex items-center space-x-4">
+        {{#if commerce.commerceLogo}}
+          <img src="{{commerce.commerceLogo}}" alt="{{commerce.commerceName}}" class="w-16 h-16 rounded-lg object-cover">
+        {{else}}
+          <div class="w-16 h-16 bg-orange-100 rounded-lg flex items-center justify-center">
+            <svg class="w-8 h-8 text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
+            </svg>
+          </div>
+        {{/if}}
+        <div>
+          <h1 class="text-2xl font-bold text-gray-900">{{commerce.commerceName}}</h1>
+          <p class="text-gray-600">{{commerce.commerceType.name}}</p>
+          <div class="flex items-center text-sm text-gray-500 mt-1">
+            <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            </svg>
+            <span>{{commerce.openingTime}} - {{commerce.closingTime}}</span>
+          </div>
+        </div>
+      </div>
+      <a href="/client/commerces?type={{commerce.commerceTypeId}}" class="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded-lg transition-colors flex items-center">
+        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+        </svg>
+        Volver a Comercios
+      </a>
+    </div>
+  </div>
+
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+    <div class="lg:col-span-2">
+      {{#each categories}}
+        <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+          <h2 class="text-xl font-bold text-gray-900 mb-2">{{this.name}}</h2>
+          <p class="text-gray-600 mb-4">{{this.description}}</p>
+          
+          {{#if this.products.length}}
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {{#each this.products}}
+                <div class="border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow product-card" data-product-id="{{this.id}}">
+                  <div class="flex space-x-4">
+                    <div class="flex-shrink-0">
+                      <img src="{{this.image}}" alt="{{this.name}}" class="w-20 h-20 rounded-lg object-cover bg-gray-100">
+                    </div>
+                    <div class="flex-1">
+                      <h3 class="font-semibold text-gray-900 mb-1">{{this.name}}</h3>
+                      <p class="text-sm text-gray-600 mb-2 line-clamp-2">{{this.description}}</p>
+                      <div class="flex items-center justify-between">
+                        <span class="text-lg font-bold text-orange-600">RD$ {{this.price}}</span>
+                        <button 
+                          class="add-to-cart-btn bg-orange-500 hover:bg-orange-600 text-white px-3 py-1 rounded-lg text-sm transition-colors"
+                          data-product-id="{{this.id}}"
+                          data-product-name="{{this.name}}"
+                          data-product-price="{{this.price}}"
+                          data-product-image="{{this.image}}"
+                          data-product-description="{{this.description}}"
+                        >
+                          Agregar
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              {{/each}}
+            </div>
+          {{else}}
+            <div class="text-center py-8 text-gray-500">
+              <svg class="w-12 h-12 mx-auto mb-4 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path>
+              </svg>
+              <p>No hay productos disponibles en esta categoría</p>
+            </div>
+          {{/if}}
+        </div>
+      {{/each}}
+
+      {{#unless categories.length}}
+        <div class="bg-white rounded-lg shadow-md p-12 text-center">
+          <svg class="w-16 h-16 mx-auto mb-4 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path>
+          </svg>
+          <h3 class="text-lg font-medium text-gray-900 mb-2">No hay productos disponibles</h3>
+          <p class="text-gray-500">Este comercio aún no ha agregado productos a su catálogo.</p>
+        </div>
+      {{/unless}}
+    </div>
+
+    <div class="lg:col-span-1">
+      <div class="bg-white rounded-lg shadow-md p-6 sticky top-6">
+        <h3 class="text-lg font-bold text-gray-900 mb-4 flex items-center">
+          <svg class="w-5 h-5 mr-2 text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-1.5 5h9m-9-5h9"></path>
+          </svg>
+          Mi Pedido
+          <span class="ml-auto bg-orange-100 text-orange-800 text-xs px-2 py-1 rounded-full cart-count">{{cartCount}}</span>
+        </h3>
+
+        <div id="cart-items" class="space-y-3 mb-4 min-h-[100px]">
+          {{#if cart.length}}
+            {{#each cart}}
+              <div class="cart-item border-b border-gray-200 pb-3" data-product-id="{{this.id}}">
+                <div class="flex items-center space-x-3">
+                  <img src="{{this.image}}" alt="{{this.name}}" class="w-12 h-12 rounded object-cover bg-gray-100">
+                  <div class="flex-1">
+                    <h4 class="font-medium text-gray-900 text-sm">{{this.name}}</h4>
+                    <p class="text-orange-600 font-semibold text-sm">RD$ {{this.price}}</p>
+                  </div>
+                  <button class="remove-from-cart text-red-500 hover:text-red-700 transition-colors" data-product-id="{{this.id}}">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                    </svg>
+                  </button>
+                </div>
+              </div>
+            {{/each}}
+          {{else}}
+            <div class="text-center py-8 text-gray-500 empty-cart">
+              <svg class="w-12 h-12 mx-auto mb-2 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-1.5 5h9m-9-5h9"></path>
+              </svg>
+              <p class="text-sm">Tu carrito está vacío</p>
+              <p class="text-xs text-gray-400">Agrega productos para continuar</p>
+            </div>
+          {{/if}}
+        </div>
+
+        <div class="border-t border-gray-200 pt-4">
+          <div class="flex justify-between items-center mb-4">
+            <span class="font-semibold text-gray-900">Subtotal:</span>
+            <span class="text-xl font-bold text-orange-600 subtotal">RD$ <span id="subtotal-amount">{{subtotal}}</span></span>
+          </div>
+          <button 
+            id="continue-btn"
+            class="w-full bg-orange-500 hover:bg-orange-600 disabled:bg-gray-300 disabled:cursor-not-allowed text-white py-3 px-4 rounded-lg font-semibold transition-colors {{#unless cart.length}}hidden{{/unless}}"
+            {{#unless cart.length}}disabled{{/unless}}
+          >
+            Continuar Pedido
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- script para carrito -->
+<script src="/js/product-catalog.js"></script>

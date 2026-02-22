@@ -1,0 +1,24 @@
+<div class="max-w-3xl mx-auto px-4">
+  <h1 class="text-3xl font-bold mb-4">Editar Tipo de Comercio</h1>
+
+  <form action="/admin/tipos-comercios/editar/{{tipo.id}}" method="POST" enctype="multipart/form-data" class="bg-white p-6 rounded shadow">
+    <div class="mb-4">
+      <label class="block mb-2">Nombre</label>
+      <input type="text" name="name" value="{{tipo.name}}" required class="w-full border px-3 py-2 rounded">
+    </div>
+    <div class="mb-4">
+      <label class="block mb-2">Descripción</label>
+      <input type="text" name="description" value="{{tipo.description}}" required class="w-full border px-3 py-2 rounded">
+    </div>
+    <div class="mb-4">
+      <label class="block mb-2">Icono actual</label>
+      <img src="{{tipo.icon}}" alt="{{tipo.name}}" class="h-24 w-24 object-contain mb-2">
+      <input type="file" name="icon" accept="image/*" class="w-full">
+    </div>
+
+    <div class="flex justify-between">
+      <a href="/admin/tipos-comercios" class="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600">← Volver</a>
+      <button type="submit" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">Guardar cambios</button>
+    </div>
+  </form>
+</div>

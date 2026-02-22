@@ -1,0 +1,152 @@
+{{!-- commerce/order-detail.hbs --}}
+<div class="container mx-auto px-4 py-6">
+  <div class="mb-6">
+    <h1 class="text-3xl font-bold text-gray-900 mb-2">Detalle Pedido #{{order.id}}</h1>
+    <nav class="text-sm">
+      <a href="/commerce/home" class="text-orange-600 hover:text-orange-800 transition duration-200">
+        ← Volver al Home
+      </a>
+    </nav>
+  </div>
+
+
+  <div class="mb-6">
+    {{#ifCond order.status '===' 'Pendiente'}}
+      <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4">
+        <div class="flex">
+          <div class="flex-shrink-0">
+            <svg class="h-5 w-5 text-yellow-400" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
+            </svg>
+          </div>
+          <div class="ml-3">
+            <p class="text-sm text-yellow-700">
+              Este pedido está <strong>pendiente</strong> y necesita ser asignado a un delivery.
+            </p>
+          </div>
+        </div>
+      </div>
+    {{/ifCond}}
+
+    {{#ifCond order.status '===' 'En proceso'}}
+      <div class="bg-blue-50 border-l-4 border-blue-400 p-4">
+        <div class="flex">
+          <div class="flex-shrink-0">
+            <svg class="h-5 w-5 text-blue-400" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+            </svg>
+          </div>
+          <div class="ml-3">
+            <p class="text-sm text-blue-700">
+              Este pedido está <strong>en proceso</strong> y ha sido asignado a un delivery.
+            </p>
+          </div>
+        </div>
+      </div>
+    {{/ifCond}}
+  </div>
+
+  <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+    <div class="bg-gray-50 px-6 py-4 border-b">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
+        <div class="flex flex-col">
+          <span class="text-gray-500 font-medium">Comercio</span>
+          <span class="text-gray-900 font-semibold">{{order.orderCommerce.commerceName}}</span>
+        </div>
+        <div class="flex flex-col">
+          <span class="text-gray-500 font-medium">Estado</span>
+          <span class="font-semibold
+            {{#ifCond order.status '===' 'Pendiente'}}text-yellow-600{{/ifCond}}
+            {{#ifCond order.status '===' 'En proceso'}}text-blue-600{{/ifCond}}
+            {{#ifCond order.status '===' 'Entregado'}}text-green-600{{/ifCond}}
+            {{#ifCond order.status '===' 'Cancelado'}}text-red-600{{/ifCond}}">
+            {{order.status}}
+          </span>
+        </div>
+        <div class="flex flex-col">
+          <span class="text-gray-500 font-medium">Fecha y Hora</span>
+          <span class="text-gray-900 font-semibold">{{order.orderDate}} {{order.orderTime}}</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="px-6 py-6">
+      <h2 class="text-xl font-semibold text-gray-900 mb-4">Productos del Pedido</h2>
+      
+      {{#if orderDetails.length}}
+        <div class="space-y-4">
+          {{#each orderDetails}}
+            <div class="flex items-center gap-4 p-4 border border-gray-200 rounded-lg hover:shadow-sm transition duration-200">
+              <div class="flex-shrink-0">
+                <img src="{{this.productImage}}" 
+                     alt="{{this.productName}}" 
+                     class="w-16 h-16 object-cover rounded-lg border shadow-sm" 
+                     onerror="this.src='/img/default-product.png'"/>
+              </div>
+              <div class="flex-1 min-w-0">
+                <p class="text-lg font-medium text-gray-900 truncate">{{this.productName}}</p>
+                <div class="flex items-center justify-between mt-1">
+                  <p class="text-sm text-gray-600">
+                    Precio unitario: <span class="font-medium text-gray-900">${{this.productPrice}}</span>
+                  </p>
+                  <p class="text-sm text-gray-600">
+                    Cantidad: <span class="font-medium text-gray-900">{{this.quantity}}</span>
+                  </p>
+                </div>
+                <p class="text-sm font-medium text-orange-600 mt-1">
+                  Subtotal: ${{multiply this.productPrice this.quantity}}
+                </p>
+              </div>
+            </div>
+          {{/each}}
+        </div>
+      {{else}}
+        <div class="text-center py-8">
+          <svg class="mx-auto h-12 w-12 text-gray-400" stroke="currentColor" fill="none" viewBox="0 0 48 48">
+            <path d="M34 40h10v-4a6 6 0 00-10.712-3.714M34 40H14m20 0v-4a9.971 9.971 0 00-.712-3.714M14 40H4v-4a6 6 0 0110.713-3.714M14 40v-4c0-1.313.253-2.566.713-3.714m0 0A9.971 9.971 0 0124 24c4.004 0 7.625 2.371 9.287 6M20 8a4 4 0 108 0 4 4 0 00-8 0z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+          <h3 class="mt-2 text-sm font-medium text-gray-900">No hay productos</h3>
+          <p class="mt-1 text-sm text-gray-500">Este pedido no tiene productos registrados.</p>
+        </div>
+      {{/if}}
+    </div>
+
+    <div class="bg-gray-50 px-6 py-4 border-t">
+      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between">
+        <div class="mb-4 sm:mb-0">
+          <p class="text-2xl font-bold text-gray-900">
+            Total: <span class="text-orange-600">${{order.total}}</span>
+          </p>
+        </div>
+
+        {{#if canAssignDelivery}}
+          <div class="flex flex-col sm:flex-row gap-3">
+            <form method="POST" action="/commerce/orders/{{order.id}}/assign-delivery" 
+                  onsubmit="return confirm('¿Estás seguro de que deseas asignar un delivery a este pedido? El estado cambiará a \'En proceso\'.')">
+              <button type="submit" 
+                      class="w-full sm:w-auto flex items-center justify-center px-6 py-3 bg-gradient-to-r from-blue-600 to-blue-700 text-white font-semibold rounded-lg shadow-md hover:from-blue-700 hover:to-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transform hover:scale-105 transition duration-200">
+                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3a4 4 0 118 0v4M5 21h14a2 2 0 002-2v-5a2 2 0 00-2-2H5a2 2 0 00-2 2v5a2 2 0 002 2z"></path>
+                </svg>
+                Asignar Delivery
+              </button>
+            </form>
+          </div>
+        {{else}}
+          <div class="text-sm text-gray-500 italic">
+            {{#ifCond order.status '===' 'En proceso'}}
+              ✓ Delivery ya asignado
+            {{else}}
+              No disponible para asignar delivery
+            {{/ifCond}}
+          </div>
+        {{/if}}
+      </div>
+    </div>
+  </div>
+
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+  });
+</script>

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{page-title}} - AppCenar </title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- AppCenar Theme -->
+    <link rel="stylesheet" href="/css/appcenar-theme.css">
+    <!-- Heroicons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/heroicons@2.0.18/24/outline/style.css">
+  </head>
+  <body class="bg-gray-50 min-h-screen flex flex-col">
+
+    <nav class="bg-orange-500 shadow-lg">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center h-16">
+          <div class="flex items-center">
+            <a href="/" class="flex items-center text-white text-xl font-bold hover:text-orange-100 transition-colors">
+              <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+              </svg>
+              AppCenar
+            </a>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <div class="flex-grow max-w-4xl w-full mx-auto mt-8 px-4 sm:px-6 lg:px-8">
+      {{#if hasErrors}}
+        <div class="bg-red-50 border border-red-200 rounded-lg p-4 mb-6">
+          <div class="flex items-start">
+            <div class="flex-shrink-0">
+              <svg class="w-5 h-5 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+              </svg>
+            </div>
+            <div class="ml-3">
+              <h3 class="text-sm font-medium text-red-800">Se encontraron los siguientes errores:</h3>
+              <ul class="mt-2 text-sm text-red-700 list-disc list-inside">
+                {{#each errors}}
+                  <li>{{this}}</li>
+                {{/each}}
+              </ul>
+            </div>
+            <div class="ml-auto pl-3">
+              <div class="-mx-1.5 -my-1.5">
+                <button type="button" class="inline-flex bg-red-50 rounded-md p-1.5 text-red-500 hover:bg-red-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-red-50 focus:ring-red-600" onclick="this.parentElement.parentElement.parentElement.parentElement.style.display='none'">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      {{/if}}
+
+      {{#if success}}
+        <div class="bg-green-50 border border-green-200 rounded-lg p-4 mb-6">
+          <div class="flex items-start">
+            <div class="flex-shrink-0">
+              <svg class="w-5 h-5 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+              </svg>
+            </div>
+            <div class="ml-3">
+              <ul class="text-sm text-green-700">
+                {{#each success}}
+                  <li>{{this}}</li>
+                {{/each}}
+              </ul>
+            </div>
+            <div class="ml-auto pl-3">
+              <div class="-mx-1.5 -my-1.5">
+                <button type="button" class="inline-flex bg-green-50 rounded-md p-1.5 text-green-500 hover:bg-green-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-green-50 focus:ring-green-600" onclick="this.parentElement.parentElement.parentElement.parentElement.style.display='none'">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      {{/if}}
+
+      <div class="bg-white max-w-4xl w-full py-8 px-6 shadow-lg rounded-lg border border-gray-200">
+        {{{body}}}
+      </div>
+    </div>
+
+    <footer class="py-4 text-center text-gray-500 text-sm bg-white border-t border-gray-200">
+      <p>&copy; 2025 AppCenar. Todos los derechos reservados.</p>
+    </footer>
+  </body>
+</html>

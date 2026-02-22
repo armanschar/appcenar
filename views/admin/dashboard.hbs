@@ -1,0 +1,163 @@
+<div class="container mx-auto px-4 py-6">
+    
+    <!-- Encabezado -->
+    <div class="mb-8">
+        <h1 class="text-4xl font-bold text-gray-800 mb-2">Dashboard Administrador</h1>
+        <p class="text-gray-600 text-lg">Panel de control y gestión del sistema</p>
+
+    </div>
+
+    <!-- Indicadores principales -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-10">
+        
+        <!-- Pedidos Card -->
+        <div class="bg-white rounded-xl shadow-lg border border-orange-200 overflow-hidden">
+            <div class="bg-gradient-to-r from-orange-500 to-orange-600 p-6 text-white">
+                <div class="flex items-center mb-2">
+                    <span class="text-2xl mr-3">📦</span>
+                    <h3 class="text-lg font-semibold">Pedidos</h3>
+                </div>
+                <p class="text-3xl font-bold mb-1">{{totalPedidos}}</p>
+                <p class="text-sm opacity-90">Total del sistema</p>
+            </div>
+            <div class="p-6 bg-orange-50">
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="text-center p-3 bg-white rounded-lg shadow-sm">
+                        <div class="text-2xl font-bold text-orange-800">{{totalPedidos}}</div>
+                        <div class="text-sm text-orange-600">Total</div>
+                    </div>
+                    <div class="text-center p-3 bg-white rounded-lg shadow-sm">
+                        <div class="text-2xl font-bold text-orange-800">{{pedidosHoy}}</div>
+                        <div class="text-sm text-orange-600">Hoy</div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Comercios Card -->
+        <div class="bg-white rounded-xl shadow-lg border border-blue-200 overflow-hidden">
+            <div class="bg-gradient-to-r from-blue-500 to-blue-600 p-6 text-white">
+                <div class="flex items-center mb-2">
+                    <span class="text-2xl mr-3">🏪</span>
+                    <h3 class="text-lg font-semibold">Comercios</h3>
+                </div>
+                <p class="text-3xl font-bold mb-1">{{totalComercios}}</p>
+                <p class="text-sm opacity-90">Total en el sistema</p>
+            </div>
+            <div class="p-6 bg-blue-50">
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="text-center p-3 bg-white rounded-lg shadow-sm">
+                        <div class="text-2xl font-bold text-green-600">{{comerciosActivos}}</div>
+                        <div class="text-sm text-gray-600">Activos</div>
+                    </div>
+                    <div class="text-center p-3 bg-white rounded-lg shadow-sm">
+                        <div class="text-2xl font-bold text-red-600">{{comerciosInactivos}}</div>
+                        <div class="text-sm text-gray-600">Inactivos</div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Clientes Card -->
+        <div class="bg-white rounded-xl shadow-lg border border-green-200 overflow-hidden">
+            <div class="bg-gradient-to-r from-green-500 to-green-600 p-6 text-white">
+                <div class="flex items-center mb-2">
+                    <span class="text-2xl mr-3">👥</span>
+                    <h3 class="text-lg font-semibold">Clientes</h3>
+                </div>
+                <p class="text-3xl font-bold mb-1">{{totalClientes}}</p>
+                <p class="text-sm opacity-90">Total en el sistema</p>
+            </div>
+            <div class="p-6 bg-green-50">
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="text-center p-3 bg-white rounded-lg shadow-sm">
+                        <div class="text-2xl font-bold text-green-600">{{clientesActivos}}</div>
+                        <div class="text-sm text-gray-600">Activos</div>
+                    </div>
+                    <div class="text-center p-3 bg-white rounded-lg shadow-sm">
+                        <div class="text-2xl font-bold text-red-600">{{clientesInactivos}}</div>
+                        <div class="text-sm text-gray-600">Inactivos</div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Delivery Card -->
+        <div class="bg-white rounded-xl shadow-lg border border-purple-200 overflow-hidden">
+            <div class="bg-gradient-to-r from-purple-500 to-purple-600 p-6 text-white">
+                <div class="flex items-center mb-2">
+                    <span class="text-2xl mr-3">🏍</span>
+                    <h3 class="text-lg font-semibold">Delivery</h3>
+                </div>
+                <p class="text-3xl font-bold mb-1">{{totalDelivery}}</p>
+                <p class="text-sm opacity-90">Total en el sistema</p>
+            </div>
+            <div class="p-6 bg-purple-50">
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="text-center p-3 bg-white rounded-lg shadow-sm">
+                        <div class="text-2xl font-bold text-green-600">{{deliveryActivos}}</div>
+                        <div class="text-sm text-gray-600">Activos</div>
+                    </div>
+                    <div class="text-center p-3 bg-white rounded-lg shadow-sm">
+                        <div class="text-2xl font-bold text-red-600">{{deliveryInactivos}}</div>
+                        <div class="text-sm text-gray-600">Inactivos</div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Productos Card -->
+        <div class="bg-white rounded-xl shadow-lg border border-indigo-200 overflow-hidden">
+            <div class="bg-gradient-to-r from-indigo-500 to-indigo-600 p-6 text-white">
+                <div class="flex items-center mb-2">
+                    <span class="text-2xl mr-3">🛍</span>
+                    <h3 class="text-lg font-semibold">Productos</h3>
+                </div>
+                <p class="text-3xl font-bold mb-1">{{totalProductos}}</p>
+                <p class="text-sm opacity-90">Total en el sistema</p>
+            </div>
+            <div class="p-6 bg-indigo-50">
+                <div class="text-center p-3 bg-white rounded-lg shadow-sm">
+                    <div class="text-2xl font-bold text-indigo-800">{{totalProductos}}</div>
+                    <div class="text-sm text-indigo-600">Productos creados</div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Menú principal -->
+    <div class="mb-8">
+        <h2 class="text-2xl font-semibold text-gray-800 mb-6">Menú de Administración</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            <a href="/admin/clientes" class="bg-orange-500 text-white p-6 rounded-lg font-semibold hover:bg-orange-600 transition text-center shadow-lg">
+                <div class="text-2xl mb-2">👥</div>
+                Listado de Clientes
+            </a>
+            <a href="/admin/delivery" class="bg-orange-500 text-white p-6 rounded-lg font-semibold hover:bg-orange-600 transition text-center shadow-lg">
+                <div class="text-2xl mb-2">🏍</div>
+                Listado de Delivery
+            </a>
+            <a href="/admin/comercios" class="bg-orange-500 text-white p-6 rounded-lg font-semibold hover:bg-orange-600 transition text-center shadow-lg">
+                <div class="text-2xl mb-2">🏪</div>
+                Listado de Comercios
+            </a>
+            <a href="/admin/configuracion" class="bg-orange-500 text-white p-6 rounded-lg font-semibold hover:bg-orange-600 transition text-center shadow-lg">
+                <div class="text-2xl mb-2">⚙</div>
+                Mantenimiento Configuración
+            </a>
+            <a href="/admin/administradores" class="bg-orange-500 text-white p-6 rounded-lg font-semibold hover:bg-orange-600 transition text-center shadow-lg">
+                <div class="text-2xl mb-2">👤</div>
+                Mantenimiento Administradores
+            </a>
+            <a href="/admin/tipos-comercios" class="bg-orange-500 text-white p-6 rounded-lg font-semibold hover:bg-orange-600 transition text-center shadow-lg">
+                <div class="text-2xl mb-2">🏷</div>
+                Mantenimiento Tipos Comercios
+            </a>
+        </div>
+    </div>
+</div>

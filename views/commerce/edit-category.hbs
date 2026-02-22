@@ -1,0 +1,23 @@
+{{!-- commerce/edit-category.hbs --}}
+<div class="max-w-3xl mx-auto mt-6">
+  <h1 class="text-3xl font-bold text-orange-600 mb-6">Editar categoría</h1>
+
+  <a href="/commerce/categories" class="inline-block mb-4 text-orange-500 hover:underline">← Volver a categorías</a>
+
+  <form action="/commerce/categories/{{category.id}}/edit" method="POST" class="space-y-6 bg-white p-6 rounded-lg shadow border border-gray-200">
+    <div>
+      <label for="name" class="block font-semibold mb-1">Nombre:</label>
+      <input type="text" id="name" name="name" value="{{category.name}}" required class="border rounded px-3 py-2 w-full" />
+    </div>
+
+    <div>
+      <label for="description" class="block font-semibold mb-1">Descripción:</label>
+      <textarea id="description" name="description" required class="border rounded px-3 py-2 w-full">{{category.description}}</textarea>
+    </div>
+
+    <div class="flex space-x-4">
+      <button type="submit" class="bg-orange-500 hover:bg-orange-600 text-white px-6 py-2 rounded font-semibold transition">Guardar</button>
+      <a href="/commerce/categories" class="inline-block px-6 py-2 text-orange-600 hover:underline">← Cancelar</a>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,107 @@
+<div class="max-w-6xl mx-auto px-4">
+    <div class="flex justify-between items-center mb-6">
+        <h1 class="text-3xl font-bold text-gray-800">Mantenimiento de Administradores</h1>
+        <div class="flex px-2 py-2">   
+        <a href="/admin/administradores/crear" class="bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-lg flex items-center gap-2">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+            </svg>
+            Crear Administrador
+        </a>
+        </div>
+    </div>
+
+    <div class="bg-white border border-gray-200 rounded-lg overflow-hidden">
+        <table class="min-w-full">
+            <thead>
+                <tr class="bg-orange-100 text-gray-800">
+                    <th class="py-3 px-4 text-left border-b">Nombre</th>
+                    <th class="py-3 px-4 text-left border-b">Apellido</th>
+                    <th class="py-3 px-4 text-left border-b">Usuario</th>
+                    <th class="py-3 px-4 text-left border-b">Cédula</th>
+                    <th class="py-3 px-4 text-left border-b">Correo</th>
+                    <th class="py-3 px-4 text-center border-b">Estado</th>
+                    <th class="py-3 px-4 text-center border-b">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each administradores}}
+                <tr class="border-b hover:bg-gray-50">
+                    <td class="py-3 px-4">{{this.name}}</td>
+                    <td class="py-3 px-4">{{this.lastName}}</td>
+                    <td class="py-3 px-4">{{this.username}}</td>
+                    <td class="py-3 px-4">{{this.cedula}}</td>
+                    <td class="py-3 px-4">{{this.email}}</td>
+                    <td class="py-3 px-4 text-center">
+                        {{#if this.isActive}}
+                            <span class="bg-green-100 text-green-800 px-2 py-1 rounded-full text-sm">Activo</span>
+                        {{else}}
+                            <span class="bg-red-100 text-red-800 px-2 py-1 rounded-full text-sm">Inactivo</span>
+                        {{/if}}
+                    </td>
+                    <td class="py-3 px-4">
+                        {{#unless (EqualsLoose this.id ../currentUserId)}}
+                            <div class="flex justify-center gap-2">
+                                <a href="/admin/administradores/editar/{{this.id}}" 
+                                   class="bg-yellow-500 hover:bg-yellow-600 text-white px-3 py-1 rounded text-sm">
+                                    Editar
+                                </a>
+                                {{#if this.isActive}}
+                                    <button onclick="confirmarInactivar({{this.id}}, '{{this.name}} {{this.lastName}}')" 
+                                            class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded text-sm">
+                                        Inactivar
+                                    </button>
+                                {{else}}
+                                    <button onclick="confirmarActivar({{this.id}}, '{{this.name}} {{this.lastName}}')" 
+                                            class="bg-green-500 hover:bg-green-600 text-white px-3 py-1 rounded text-sm">
+                                        Activar
+                                    </button>
+                                {{/if}}
+                            </div>
+                        {{else}}
+                            <div class="text-center">
+                                <span class="text-gray-500 text-sm">Usuario actual</span>
+                            </div>
+                        {{/unless}}
+                    </td>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Modal de confirmación -->
+<div id="confirmModal" class="fixed inset-0 bg-gray-600 bg-opacity-50 hidden z-50">
+    <div class="flex items-center justify-center min-h-screen p-4">
+        <div class="bg-white rounded-lg shadow-xl max-w-md w-full">
+            <div class="px-6 py-4 border-b">
+                <h3 id="confirmModalTitle" class="text-lg font-semibold text-gray-900"></h3>
+            </div>
+            <div class="px-6 py-4">
+                <p id="confirmModalBody" class="text-gray-700"></p>
+            </div>
+            <div class="px-6 py-4 border-t flex justify-end gap-3">
+                <button onclick="cerrarModal()" class="bg-gray-300 hover:bg-gray-400 text-gray-700 px-4 py-2 rounded">
+                    No
+                </button>
+                <form id="confirmForm" method="POST" style="display: inline;">
+                    <button type="submit" class="bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded">
+                        Sí
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="max-w-6xl mx-auto px-4 mt-4">
+  <div class="text-left">
+    <a href="/admin/dashboard" 
+       class="bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded inline-block transition-colors duration-200">
+      ← Volver al Dashboard
+    </a>
+  </div>
+</div>
+
+<script src="/js/admins.js"></script>

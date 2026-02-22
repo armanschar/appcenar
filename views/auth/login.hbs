@@ -1,0 +1,53 @@
+<div class="bg-white rounded-xl shadow-xl p-8 max-w-4xl mx-auto">
+    <h2 class="text-3xl font-bold text-center mb-8 text-gray-800">Iniciar Sesión</h2>
+    
+    <form action="/" method="POST" class="space-y-6">
+        <div>
+            <label for="emailOrUsername" class="block text-sm font-medium text-gray-700 mb-2">
+                Correo o Nombre de Usuario
+            </label>
+            <input 
+                type="text" 
+                id="emailOrUsername" 
+                name="emailOrUsername" 
+                required 
+                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-orange-500 focus:border-orange-500 transition duration-200"
+                placeholder="correo@ejemplo.com o tu_usuario"
+            />
+        </div>
+        
+        <div>
+            <label for="password" class="block text-sm font-medium text-gray-700 mb-2">Contraseña</label>
+            <input 
+                type="password" 
+                id="password" 
+                name="password" 
+                required 
+                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-orange-500 focus:border-orange-500 transition duration-200"
+                placeholder="••••••••"
+            />
+        </div>
+        
+        <button type="submit" class="w-full bg-orange-500 text-white py-3 px-6 rounded-lg font-semibold hover:bg-orange-600 transform hover:scale-105 transition duration-200 shadow-lg">
+            Iniciar Sesión
+        </button>
+    </form>
+    
+    <div class="mt-8 space-y-4">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <a href="/register-client-delivery" class="block text-center py-3 px-6 border border-gray-300 rounded-lg hover:border-orange-500 hover:text-orange-500 transition duration-200 text-gray-700 font-medium">
+                Registrarse como Cliente/Delivery
+            </a>
+            
+            <a href="/register-commerce" class="block text-center py-3 px-6 border border-gray-300 rounded-lg hover:border-orange-500 hover:text-orange-500 transition duration-200 text-gray-700 font-medium">
+                Registrarse como Comercio
+            </a>
+        </div>
+        
+        <div class="text-center">
+            <a href="/forgot" class="text-orange-500 hover:text-orange-600 text-sm underline transition duration-200">
+                ¿Olvidaste tu contraseña? Restablécela aquí
+            </a>
+        </div>
+    </div>
+</div>

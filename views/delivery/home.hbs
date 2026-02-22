@@ -1,0 +1,169 @@
+<!-- Header sin fondo -->
+<div class="py-8 px-6 mb-8">
+  <div class="max-w-7xl mx-auto">
+    <div class="flex items-center justify-between">
+      <div>
+        <h1 class="text-3xl font-bold mb-2 flex items-center text-gray-900">
+          🏍️ ¡Hola, {{user.name}}!
+        </h1>
+        <p class="text-gray-600 text-lg">Listo para hacer entregas hoy</p>
+      </div>
+      <div class="text-right">
+        <span class="text-4xl opacity-20">🚚</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="max-w-7xl mx-auto px-6">
+  <!-- Botón de perfil -->
+  <div class="mb-8">
+    <a href="/delivery/profile" class="inline-flex items-center px-6 py-3 bg-gradient-to-r from-orange-500 to-orange-600 text-white rounded-full hover:shadow-lg transform hover:scale-105 transition-all duration-300 font-medium">
+      👤 Mi Perfil →
+    </a>
+  </div>
+
+  <!-- Título de sección -->
+  <div class="mb-8">
+    <h2 class="text-2xl font-bold text-gray-800 flex items-center mb-2">
+      📋 Pedidos Asignados y Pendientes
+    </h2>
+    <div class="h-1 w-24 bg-gradient-to-r from-orange-500 to-orange-600 rounded-full"></div>
+  </div>
+
+  {{#if orders.length}}
+    <!-- Vista de escritorio -->
+    <div class="hidden lg:block">
+      <div class="bg-white rounded-2xl shadow-xl overflow-hidden backdrop-blur-sm">
+        <table class="min-w-full">
+          <thead class="bg-gradient-to-r from-orange-500 to-orange-600 text-white">
+            <tr>
+              <th class="px-6 py-4 text-left font-semibold">🏪 Comercio</th>
+              <th class="px-6 py-4 text-left font-semibold">📊 Estado</th>
+              <th class="px-6 py-4 text-left font-semibold">💰 Total</th>
+              <th class="px-6 py-4 text-left font-semibold">🛍️ Productos</th>
+              <th class="px-6 py-4 text-left font-semibold">📅 Fecha</th>
+              <th class="px-6 py-4 text-left font-semibold">🕐 Hora</th>
+              <th class="px-6 py-4 text-left font-semibold">⚡ Acción</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-gray-100">
+            {{#each orders}}
+              <tr class="hover:bg-orange-50 transition-colors duration-200">
+                <td class="px-6 py-4">
+                  <div class="flex items-center">
+                    <div class="w-14 h-14 rounded-xl overflow-hidden shadow-md mr-4 bg-white">
+                      <img src="{{this.commerce.commerceLogo}}" alt="{{this.commerce.commerceName}}" class="w-full h-full object-contain">
+                    </div>
+                    <div>
+                      <p class="font-semibold text-gray-900">{{this.commerce.commerceName}}</p>
+                      <p class="text-sm text-gray-500">Pedido #{{this.id}}</p>
+                    </div>
+                  </div>
+                </td>
+                <td class="px-6 py-4">
+                  {{#ifCond this.status "===" "Pendiente"}}
+                    <span class="bg-yellow-200 text-yellow-800 px-3 py-1 rounded-full text-xs font-semibold inline-flex items-center">
+                      ⏰ {{this.status}}
+                    </span>
+                  {{else}}
+                    <span class="bg-green-200 text-green-800 px-3 py-1 rounded-full text-xs font-semibold inline-flex items-center">
+                      ✅ {{this.status}}
+                    </span>
+                  {{/ifCond}}
+                </td>
+                <td class="px-6 py-4">
+                  <span class="text-xl font-bold text-green-600">${{this.total}}</span>
+                </td>
+                <td class="px-6 py-4">
+                  <div class="flex items-center">
+                    <span class="font-medium">{{this.productsCount}}</span>
+                  </div>
+                </td>
+                <td class="px-6 py-4 text-gray-700">{{this.orderDate}}</td>
+                <td class="px-6 py-4 text-gray-700">{{this.orderTime}}</td>
+                <td class="px-6 py-4">
+                  {{#ifCond this.status "===" "Pendiente"}}
+                    <form action="/delivery/order/{{this.id}}/take" method="POST" style="display:inline;">
+                      <button type="submit" class="inline-flex items-center px-4 py-2 bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white rounded-full font-medium shadow-md transition-all duration-300 hover:shadow-lg transform hover:-translate-y-1">
+                        ✋ Tomar Pedido
+                      </button>
+                    </form>
+                  {{else}}
+                    <a href="/delivery/order/{{this.id}}" class="inline-flex items-center px-4 py-2 bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white rounded-full font-medium shadow-md transition-all duration-300 hover:shadow-lg transform hover:-translate-y-1">
+                      👁️ Ver Detalle
+                    </a>
+                  {{/ifCond}}
+                </td>
+              </tr>
+            {{/each}}
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Vista móvil -->
+    <div class="lg:hidden space-y-4">
+      {{#each orders}}
+        <div class="bg-white rounded-2xl p-6 shadow-lg transition-all duration-300 hover:shadow-xl hover:transform hover:-translate-y-1">
+          <div class="flex items-start justify-between mb-4">
+            <div class="flex items-center">
+              <div class="w-12 h-12 rounded-xl overflow-hidden shadow-md mr-3 bg-white">
+                <img src="{{this.commerce.commerceLogo}}" alt="{{this.commerce.commerceName}}" class="w-full h-full object-contain">
+              </div>
+              <div>
+                <h3 class="font-bold text-gray-900">{{this.commerce.commerceName}}</h3>
+                <p class="text-sm text-gray-500">Pedido #{{this.id}}</p>
+              </div>
+            </div>
+            {{#ifCond this.status "===" "Pendiente"}}
+              <span class="bg-yellow-200 text-yellow-800 px-3 py-1 rounded-full text-xs font-semibold">{{this.status}}</span>
+            {{else}}
+              <span class="bg-green-200 text-green-800 px-3 py-1 rounded-full text-xs font-semibold">{{this.status}}</span>
+            {{/ifCond}}
+          </div>
+          
+          <div class="grid grid-cols-2 gap-4 mb-4">
+            <div class="bg-green-50 p-3 rounded-lg">
+              <p class="text-sm text-green-700 font-medium">💰 Total</p>
+              <p class="text-xl font-bold text-green-600">${{this.total}}</p>
+            </div>
+            <div class="bg-orange-50 p-3 rounded-lg">
+              <p class="text-sm text-orange-700 font-medium">🛍️ Productos</p>
+              <p class="text-lg font-bold text-orange-600">{{this.productsCount}}</p>
+            </div>
+          </div>
+          
+          <div class="flex justify-between items-center text-sm text-gray-600 mb-4">
+            <span>📅 {{this.orderDate}}</span>
+            <span>🕐 {{this.orderTime}}</span>
+          </div>
+          
+          {{#ifCond this.status "===" "Pendiente"}}
+            <form action="/delivery/order/{{this.id}}/take" method="POST">
+              <button type="submit" class="w-full inline-flex items-center justify-center px-4 py-3 bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white rounded-full font-medium shadow-md transition-all duration-300 hover:shadow-lg">
+                ✋ Tomar Pedido
+              </button>
+            </form>
+          {{else}}
+            <a href="/delivery/order/{{this.id}}" class="w-full inline-flex items-center justify-center px-4 py-3 bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white rounded-full font-medium shadow-md transition-all duration-300 hover:shadow-lg">
+              👁️ Ver Detalle
+            </a>
+          {{/ifCond}}
+        </div>
+      {{/each}}
+    </div>
+  {{else}}
+    <!-- Estado vacío -->
+    <div class="text-center py-16">
+      <div class="bg-white rounded-3xl p-12 max-w-md mx-auto shadow-lg">
+        <div class="w-20 h-20 bg-gradient-to-r from-orange-500 to-orange-600 rounded-full flex items-center justify-center mx-auto mb-6">
+          <span class="text-3xl text-white">📋</span>
+        </div>
+        <h3 class="text-xl font-bold text-gray-800 mb-3">No hay pedidos disponibles</h3>
+        <p class="text-gray-600 mb-6">Por el momento no tienes pedidos asignados. ¡Mantente atento para nuevas oportunidades!</p>
+        <div class="text-4xl mb-4">🏍️</div>
+      </div>
+    </div>
+  {{/if}}
+</div>

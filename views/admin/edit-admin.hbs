@@ -1,0 +1,80 @@
+<div class="max-w-4xl mx-auto px-4">
+    <h1 class="text-3xl font-bold text-gray-800 mb-6">Editar Administrador</h1>
+
+    <div class="bg-white border border-gray-200 rounded-lg p-6">
+        {{#if error}}
+            <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
+                {{error}}
+            </div>
+        {{/if}}
+        
+        <form method="POST" action="/admin/administradores/editar/{{admin.id}}">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                    <label for="name" class="block text-sm font-medium text-gray-700 mb-2">Nombre *</label>
+                    <input type="text" 
+                           class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500" 
+                           id="name" name="name" value="{{admin.name}}" required>
+                </div>
+                <div>
+                    <label for="lastName" class="block text-sm font-medium text-gray-700 mb-2">Apellido *</label>
+                    <input type="text" 
+                           class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500" 
+                           id="lastName" name="lastName" value="{{admin.lastName}}" required>
+                </div>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+                <div>
+                    <label for="cedula" class="block text-sm font-medium text-gray-700 mb-2">Cédula *</label>
+                    <input type="text" 
+                           class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500" 
+                           id="cedula" name="cedula" value="{{admin.cedula}}" required>
+                </div>
+                <div>
+                    <label for="email" class="block text-sm font-medium text-gray-700 mb-2">Correo *</label>
+                    <input type="email" 
+                           class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500" 
+                           id="email" name="email" value="{{admin.email}}" required>
+                </div>
+            </div>
+            
+            <div class="mt-6">
+                <label for="username" class="block text-sm font-medium text-gray-700 mb-2">Usuario *</label>
+                <input type="text" 
+                       class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500" 
+                       id="username" name="username" value="{{admin.username}}" required>
+            </div>
+            
+            <div class="mt-8 pt-6 border-t border-gray-200">
+                <h3 class="text-lg font-medium text-gray-900 mb-4">Cambiar Contraseña (opcional)</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label for="password" class="block text-sm font-medium text-gray-700 mb-2">Nueva Contraseña</label>
+                        <input type="password" 
+                               class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500" 
+                               id="password" name="password">
+                        <p class="text-sm text-gray-500 mt-1">Dejar en blanco para mantener la contraseña actual</p>
+                    </div>
+                    <div>
+                        <label for="confirmPassword" class="block text-sm font-medium text-gray-700 mb-2">Confirmar Nueva Contraseña</label>
+                        <input type="password" 
+                               class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500" 
+                               id="confirmPassword" name="confirmPassword">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="flex justify-end gap-4 mt-8">
+                <a href="/admin/administradores" 
+                   class="bg-gray-300 hover:bg-gray-400 text-gray-700 px-6 py-2 rounded-lg">
+                    ← Volver al Listado
+                </a>
+                <button type="submit" 
+                        class="bg-orange-500 hover:bg-orange-600 text-white px-6 py-2 rounded-lg">
+                    Guardar Cambios
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

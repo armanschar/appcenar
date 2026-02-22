@@ -1,0 +1,148 @@
+
+<div class="min-h-[calc(100vh-4rem)] bg-gray-50 py-8">
+    <div class="max-w-6xl mx-auto px-4">
+        
+        <div class="mb-8">
+            <div class="flex items-center justify-between mb-4">
+                <div class="flex items-center space-x-4">
+                    <a href="/client/home" class="bg-white p-2 rounded-lg shadow hover:shadow-md transition duration-200">
+                        <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+                        </svg>
+                    </a>
+                    <div>
+                        <h1 class="text-3xl font-bold text-gray-800">Mis Pedidos</h1>
+                        <p class="text-gray-600">Historial de todos tus pedidos</p>
+                    </div>
+                </div>
+                <div class="text-4xl">📦</div>
+            </div>
+        </div>
+
+        <div class="mb-6">
+            <p class="text-lg text-gray-700">
+                Tienes <span class="font-bold text-orange-600">{{orderCount}}</span> pedidos en total
+            </p>
+        </div>
+
+        {{#if orders.length}}
+            <div class="space-y-4">
+                {{#each orders}}
+                    <div class="bg-white rounded-xl shadow-lg hover:shadow-xl transition duration-300 overflow-hidden">
+                        <a href="/client/orders/{{this.id}}" class="block p-6 hover:bg-gray-50 transition duration-200">
+                            <div class="flex items-center space-x-4">
+                                
+                                <div class="flex-shrink-0">
+                                    <div class="w-16 h-16 bg-gray-200 rounded-lg flex items-center justify-center">
+                                        {{#if this.commerce.commerceLogo}}
+                                            <img 
+                                                src="{{this.commerce.commerceLogo}}" 
+                                                alt="{{this.commerce.commerceName}}" 
+                                                class="w-full h-full object-cover rounded-lg"
+                                            >
+                                        {{else}}
+                                            <div class="text-2xl text-gray-400">
+                                                {{#if this.commerce.commerceType.icon}}{{this.commerce.commerceType.icon}}{{else}}🏪{{/if}}
+                                            </div>
+                                        {{/if}}
+                                    </div>
+                                </div>
+
+                                
+                                <div class="flex-1 min-w-0">
+                                    <div class="flex items-start justify-between">
+                                        <div class="flex-1">
+                                            <h3 class="text-lg font-semibold text-gray-800 mb-1">{{this.commerce.commerceName}}</h3>
+                                            
+                                            
+                                            <div class="flex items-center space-x-4 text-sm text-gray-600">
+                                                <span class="flex items-center">
+                                                    <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
+                                                    </svg>
+                                                    {{this.itemCount}}                                                     {{#if (Equals this.itemCount 1)}}producto{{else}}productos{{/if}}
+                                                </span>
+                                                <span class="flex items-center">
+                                                    <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                                    </svg>
+                                                    {{this.formattedDate}}
+                                                </span>
+                                            </div>
+                                        </div>
+
+                                        
+                                        <div class="text-right">
+                                            
+                                            <div class="mb-2">
+                                                {{#if (Equals this.status "Pendiente")}}
+                                                    <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">
+                                                        <span class="w-2 h-2 bg-yellow-400 rounded-full mr-2"></span>
+                                                        Pendiente
+                                                    </span>
+                                                {{else if (Equals this.status "En Proceso")}}
+                                                    <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-orange-100 text-orange-800">
+                                                        <span class="w-2 h-2 bg-orange-400 rounded-full mr-2"></span>
+                                                        En Proceso
+                                                    </span>
+                                                {{else if (Equals this.status "Completado")}}
+                                                    <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                                                        <span class="w-2 h-2 bg-green-400 rounded-full mr-2"></span>
+                                                        Completado
+                                                    </span>
+                                                {{else}}
+                                                    <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-gray-100 text-gray-800">
+                                                        <span class="w-2 h-2 bg-gray-400 rounded-full mr-2"></span>
+                                                        {{this.status}}
+                                                    </span>
+                                                {{/if}}
+                                            </div>
+
+                                            
+                                            <div class="text-xl font-bold text-gray-800">
+                                                ${{this.formattedTotal}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                
+                                <div class="flex-shrink-0">
+                                    <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                                    </svg>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                {{/each}}
+            </div>
+
+            
+            {{#if hasMoreOrders}}
+                <div class="mt-8 text-center">
+                    <button class="bg-orange-500 text-white px-6 py-3 rounded-lg font-semibold hover:bg-orange-600 transition duration-200">
+                        Cargar más pedidos
+                    </button>
+                </div>
+            {{/if}}
+        {{else}}
+            
+            <div class="bg-white rounded-xl shadow-lg p-12 text-center">
+                <div class="text-6xl text-gray-300 mb-6">📦</div>
+                <h3 class="text-2xl font-bold text-gray-800 mb-4">
+                    No tienes pedidos aún
+                </h3>
+                <p class="text-gray-600 mb-8">
+                    Cuando realices tu primer pedido, aparecerá aquí con toda la información y estado de seguimiento.
+                </p>
+                <a 
+                    href="/client/home" 
+                    class="bg-orange-500 text-white px-6 py-3 rounded-lg font-semibold hover:bg-orange-600 transition duration-200"
+                >
+                    Explorar Comercios
+                </a>
+            </div>
+        {{/if}}
+    </div>
+</div>

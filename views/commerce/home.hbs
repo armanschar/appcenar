@@ -1,0 +1,279 @@
+<!-- Estilos CSS para el panel de comercio -->
+<style>
+  .gradient-bg {
+    background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
+  }
+  .card-shadow {
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+  }
+  .nav-card {
+    background: linear-gradient(135deg, #fef7ed 0%, #fed7aa 50%, #fdba74 100%);
+    border-left: 4px solid #f97316;
+  }
+  .orders-card {
+    background: linear-gradient(135deg, #f0f9ff 0%, #dbeafe 50%, #bfdbfe 100%);
+    border-left: 4px solid #3b82f6;
+  }
+  .nav-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 20px;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 25px;
+    color: #ea580c;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(5px);
+    border: 2px solid transparent;
+  }
+  .nav-link:hover {
+    background: white;
+    color: #dc2626;
+    text-decoration: none;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(249, 115, 22, 0.2);
+    border-color: #f97316;
+  }
+  .order-card {
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 16px;
+    padding: 24px;
+    margin-bottom: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
+  }
+  .order-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+    background: white;
+  }
+  .status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 0.875rem;
+    font-weight: 600;
+  }
+  .status-pendiente { background: #fef3c7; color: #d97706; }
+  .status-confirmado { background: #dbeafe; color: #2563eb; }
+  .status-preparando { background: #fef3c7; color: #f59e0b; }
+  .status-listo { background: #dcfce7; color: #16a34a; }
+  .status-entregado { background: #d1fae5; color: #059669; }
+  .info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+    margin-bottom: 20px;
+  }
+  .info-item {
+    background: rgba(249, 115, 22, 0.05);
+    padding: 12px;
+    border-radius: 8px;
+    border-left: 3px solid #f97316;
+  }
+  .info-label {
+    font-weight: 600;
+    color: #374151;
+    font-size: 0.875rem;
+    margin-bottom: 4px;
+  }
+  .info-value {
+    color: #1f2937;
+    font-size: 1rem;
+  }
+  .commerce-logo {
+    width: 48px;
+    height: 48px;
+    border-radius: 8px;
+    object-fit: contain;
+    background: white;
+    padding: 4px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+  .view-detail-btn {
+    background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 20px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .view-detail-btn:hover {
+    background: linear-gradient(135deg, #ea580c 0%, #dc2626 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(249, 115, 22, 0.3);
+    text-decoration: none;
+    color: white;
+  }
+  .empty-state {
+    text-align: center;
+    padding: 60px 20px;
+    background: rgba(255, 255, 255, 0.6);
+    border-radius: 20px;
+    backdrop-filter: blur(10px);
+  }
+  .total-highlight {
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    color: white;
+    padding: 8px 16px;
+    border-radius: 12px;
+    font-weight: bold;
+    font-size: 1.1rem;
+  }
+</style>
+
+<!-- Header del panel -->
+<div class="max-w-6xl mx-auto mt-6 px-4">
+  <div class="mb-8">
+    <div class="gradient-bg text-white py-8 px-8 rounded-2xl card-shadow">
+      <div class="flex items-center justify-between">
+        <div>
+          <h1 class="text-4xl font-bold mb-2 flex items-center gap-3">
+            🏪 Panel del Comercio
+          </h1>
+          <p class="text-orange-100 text-lg">Gestiona tu negocio de forma eficiente</p>
+        </div>
+        <div class="text-right">
+          <span class="text-6xl opacity-20">📊</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Navegación mejorada -->
+  <div class="nav-card rounded-2xl p-8 mb-8 card-shadow">
+    <div class="flex items-center mb-6">
+      <span class="text-2xl mr-3">🧭</span>
+      <h2 class="text-2xl font-bold text-gray-800">Navegación</h2>
+    </div>
+    
+    <nav class="flex flex-wrap gap-4">
+      <a href="/commerce/home" class="nav-link">
+        🏠 Home del comercio
+      </a>
+      <a href="/commerce/profile" class="nav-link">
+        📄 Perfil del comercio
+      </a>
+      <a href="/commerce/categories" class="nav-link">
+        📂 Mantenimiento de categorías
+      </a>
+      <a href="/commerce/products" class="nav-link">
+        🛒 Mantenimiento de productos
+      </a>
+    </nav>
+  </div>
+
+  <!-- Sección de pedidos -->
+  <div class="orders-card rounded-2xl p-8 card-shadow">
+    <div class="flex items-center mb-6">
+      <span class="text-2xl mr-3">📋</span>
+      <h2 class="text-2xl font-bold text-gray-800">Pedidos Recientes</h2>
+    </div>
+    
+    {{#if orders.length}}
+      <div class="space-y-6">
+        {{#each orders}}
+          <div class="order-card">
+            <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
+              
+              <!-- Información principal -->
+              <div class="flex-1">
+                <div class="flex items-center gap-4 mb-4">
+                  <img src="{{this.orderCommerce.commerceLogo}}" 
+                       alt="{{this.orderCommerce.commerceName}}" 
+                       class="commerce-logo">
+                  <div>
+                    <h3 class="text-xl font-bold text-gray-800">{{this.orderCommerce.commerceName}}</h3>
+                    <p class="text-sm text-gray-600">Pedido #{{this.id}}</p>
+                  </div>
+                  <div class="status-badge status-{{this.status}}">
+                    {{#ifCond this.status "===" "Pendiente"}}
+                      ⏰ {{this.status}}
+                    {{/ifCond}}
+                    {{#ifCond this.status "===" "Confirmado"}}
+                      ✅ {{this.status}}
+                    {{/ifCond}}
+                    {{#ifCond this.status "===" "Preparando"}}
+                      👨‍🍳 {{this.status}}
+                    {{/ifCond}}
+                    {{#ifCond this.status "===" "Listo"}}
+                      🎉 {{this.status}}
+                    {{/ifCond}}
+                    {{#ifCond this.status "===" "Entregado"}}
+                      🚚 {{this.status}}
+                    {{/ifCond}}
+                    {{#ifCond this.status "!==" "Pendiente"}}
+                      {{#ifCond this.status "!==" "Confirmado"}}
+                        {{#ifCond this.status "!==" "Preparando"}}
+                          {{#ifCond this.status "!==" "Listo"}}
+                            {{#ifCond this.status "!==" "Entregado"}}
+                              📊 {{this.status}}
+                            {{/ifCond}}
+                          {{/ifCond}}
+                        {{/ifCond}}
+                      {{/ifCond}}
+                    {{/ifCond}}
+                  </div>
+                </div>
+                
+                <!-- Grid de información -->
+                <div class="info-grid">
+                  <div class="info-item">
+                    <div class="info-label">🛍️ Total de productos</div>
+                    <div class="info-value">{{this.productsCount}} items</div>
+                  </div>
+                  <div class="info-item">
+                    <div class="info-label">📅 Fecha del pedido</div>
+                    <div class="info-value">{{this.createdAt}}</div>
+                  </div>
+                  <div class="info-item">
+                    <div class="total-highlight">
+                      💰 Total: ${{this.total}}
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Botón de acción -->
+              <div class="flex-shrink-0">
+                <a href="/commerce/orders/{{this.id}}" class="view-detail-btn">
+                  👁️ Ver detalle
+                  <span>→</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        {{/each}}
+      </div>
+    {{else}}
+      <!-- Estado vacío mejorado -->
+      <div class="empty-state">
+        <div class="w-24 h-24 gradient-bg rounded-full flex items-center justify-center mx-auto mb-6">
+          <span class="text-4xl text-white">📦</span>
+        </div>
+        <h3 class="text-2xl font-bold text-gray-800 mb-3">No tienes pedidos aún</h3>
+        <p class="text-gray-600 text-lg mb-6">
+          ¡Cuando recibas tu primer pedido, aparecerá aquí!
+        </p>
+        <div class="flex justify-center gap-4">
+          <a href="/commerce/products" class="nav-link">
+            🛒 Gestionar productos
+          </a>
+          <a href="/commerce/profile" class="nav-link">
+            📄 Completar perfil
+          </a>
+        </div>
+      </div>
+    {{/if}}
+  </div>
+</div>

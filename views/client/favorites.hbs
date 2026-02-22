@@ -1,0 +1,116 @@
+<div class="min-h-[calc(100vh-4rem)] bg-gray-50 py-8">
+    <div class="max-w-6xl mx-auto px-4">
+        
+        <div class="mb-8">
+            <div class="flex items-center justify-between mb-4">
+                <div class="flex items-center space-x-4">
+                    <a href="/client/home" class="bg-white p-2 rounded-lg shadow hover:shadow-md transition duration-200">
+                        <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+                        </svg>
+                    </a>
+                    <div>
+                        <h1 class="text-3xl font-bold text-gray-800">Mis Favoritos</h1>
+                        <p class="text-gray-600">Comercios que has marcado como favoritos</p>
+                    </div>
+                </div>
+                <div class="text-4xl">❤️</div>
+            </div>
+        </div>
+
+        <div class="mb-6">
+            <p class="text-lg text-gray-700">
+                Tienes <span class="font-bold text-orange-600">{{favoriteCount}}</span> comercios favoritos
+            </p>
+        </div>
+
+        {{#if favorites.length}}
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {{#each favorites}}
+                    <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition duration-300">
+                        <a href="/client/commerce/{{this.commerce.id}}/catalog" class="block">
+                            <div class="h-48 bg-gray-200 flex items-center justify-center relative hover:bg-gray-100 transition duration-200">
+                                {{#if this.commerce.commerceLogo}}
+                                    <img 
+                                        src="{{this.commerce.commerceLogo}}" 
+                                        alt="{{this.commerce.commerceName}}" 
+                                        class="w-full h-full object-cover"
+                                    >
+                                {{else}}
+                                    <div class="text-6xl text-gray-400">
+                                        {{#if this.commerce.commerceType.icon}}{{this.commerce.commerceType.icon}}{{else}}🏪{{/if}}
+                                    </div>
+                                {{/if}}
+                                
+                                <div class="absolute inset-0 bg-black bg-opacity-0 hover:bg-opacity-10 transition duration-200 flex items-center justify-center">
+                                    <div class="opacity-0 hover:opacity-100 transition duration-200">
+                                        <svg class="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                                        </svg>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+
+                        <div class="p-6">
+                            <div class="flex items-start justify-between mb-4">
+                                <div class="flex-1">
+                                    <h3 class="text-xl font-bold text-gray-800 mb-1">{{this.commerce.commerceName}}</h3>
+                                    <p class="text-sm text-gray-500">{{this.commerce.commerceType.name}}</p>
+                                </div>
+                                
+                                <button 
+                                    onclick="toggleFavorite({{this.commerce.id}}, this)"
+                                    class="p-2 rounded-full bg-red-50 text-red-500 hover:bg-red-100 hover:text-red-600 transition duration-200"
+                                    data-commerce-id="{{this.commerce.id}}"
+                                    data-is-favorite="true"
+                                    title="Quitar de favoritos"
+                                >
+                                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                                    </svg>
+                                </button>
+                            </div>
+                            
+                            {{#if this.commerce.openingTime}}
+                                <div class="flex items-center text-gray-600 mb-4">
+                                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                    </svg>
+                                    <span class="text-sm">{{this.commerce.openingTime}} - {{this.commerce.closingTime}}</span>
+                                </div>
+                            {{/if}}
+
+                            <a 
+                                href="/client/commerce/{{this.commerce.id}}/catalog" 
+                                class="w-full bg-orange-500 text-white py-3 px-4 rounded-lg font-semibold hover:bg-orange-600 transition duration-200 flex items-center justify-center space-x-2"
+                            >
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
+                                </svg>
+                                <span>Ver Menú</span>
+                            </a>
+                        </div>
+                    </div>
+                {{/each}}
+            </div>
+        {{else}}
+            <div class="bg-white rounded-xl shadow-lg p-12 text-center">
+                <div class="text-6xl text-gray-300 mb-6">💔</div>
+                <h3 class="text-2xl font-bold text-gray-800 mb-4">
+                    No tienes favoritos aún
+                </h3>
+                <p class="text-gray-600 mb-8">
+                    Explora los diferentes tipos de comercios y marca tus favoritos para encontrarlos fácilmente aquí.
+                </p>
+                <a 
+                    href="/client/home" 
+                    class="bg-orange-500 text-white px-6 py-3 rounded-lg font-semibold hover:bg-orange-600 transition duration-200"
+                >
+                    Explorar Comercios
+                </a>
+            </div>
+        {{/if}}
+    </div>
+</div>

@@ -1,0 +1,160 @@
+<div class="min-h-[calc(100vh-4rem)] bg-gray-50 py-8">
+    <div class="max-w-6xl mx-auto px-4">
+        
+  
+        <div class="mb-8">
+            <div class="flex items-center justify-between mb-4">
+                <div class="flex items-center space-x-4">
+                    <a href="/client/home" class="bg-white p-2 rounded-lg shadow hover:shadow-md transition duration-200">
+                        <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+                        </svg>
+                    </a>
+                    <div>
+                        <h1 class="text-3xl font-bold text-gray-800">{{commerceType.name}}</h1>
+                        <p class="text-gray-600">Comercios disponibles</p>
+                    </div>
+                </div>
+                {{#if commerceType.icon}}
+                    <img src="{{commerceType.icon}}" alt="{{commerceType.name}}" class="w-12 h-12">
+                {{/if}}
+            </div>
+        </div>
+
+
+        <div class="bg-white rounded-xl shadow-lg p-6 mb-6">
+            <form method="GET" action="/client/commerces" class="flex gap-4">
+                <input type="hidden" name="type" value="{{commerceType.id}}">
+                <div class="flex-1">
+                    <input 
+                        type="text" 
+                        name="search" 
+                        value="{{searchTerm}}"
+                        placeholder="Buscar comercios por nombre..."
+                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-orange-500 focus:border-orange-500 transition duration-200"
+                    >
+                </div>
+                <button 
+                    type="submit" 
+                    class="bg-orange-500 text-white px-6 py-3 rounded-lg font-semibold hover:bg-orange-600 transition duration-200 flex items-center space-x-2"
+                >
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                    </svg>
+                    <span>Buscar</span>
+                </button>
+            </form>
+        </div>
+
+
+        <div class="mb-6">
+            <p class="text-lg text-gray-700">
+                {{#if searchTerm}}
+                    Se encontraron <span class="font-bold text-orange-600">{{commerceCount}}</span> comercios que coinciden con "{{searchTerm}}"
+                {{else}}
+                    <span class="font-bold text-orange-600">{{commerceCount}}</span> comercios de tipo {{commerceType.name}}
+                {{/if}}
+            </p>
+        </div>
+
+
+        {{#if commerces.length}}
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {{#each commerces}}
+                    <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition duration-300">
+ 
+                        <div class="h-48 bg-gray-200 flex items-center justify-center relative">
+                            {{#if this.commerceLogo}}
+                                <img 
+                                    src="{{this.commerceLogo}}" 
+                                    alt="{{this.commerceName}}" 
+                                    class="w-full h-full object-cover"
+                                >
+                            {{else}}
+                                <div class="text-6xl text-gray-400">
+                                    {{#if ../commerceType.icon}}{{../commerceType.icon}}{{else}}🏪{{/if}}
+                                </div>
+                            {{/if}}
+                            
+
+                            <button 
+                                onclick="toggleFavorite({{this.id}}, this)"
+                                class="absolute top-3 right-3 p-2 rounded-full shadow-lg hover:shadow-xl transform hover:scale-110 transition-all duration-200 favorite-btn {{#if this.isFavorite}}bg-red-50 text-red-500 hover:bg-red-100 hover:text-red-600{{else}}bg-white text-gray-400 hover:bg-gray-50 hover:text-gray-600{{/if}}"
+                                data-commerce-id="{{this.id}}"
+                                data-is-favorite="{{this.isFavorite}}"
+                                title="{{#if this.isFavorite}}Quitar de favoritos{{else}}Agregar a favoritos{{/if}}"
+                            >
+                                {{#if this.isFavorite}}
+                                    <svg class="w-6 h-6 transition-transform duration-200 hover:scale-110" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                                    </svg>
+                                {{else}}
+                                    <svg class="w-6 h-6 transition-transform duration-200 hover:scale-110" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                                    </svg>
+                                {{/if}}
+                            </button>
+                        </div>
+
+
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold text-gray-800 mb-2">{{this.commerceName}}</h3>
+                            
+                            {{#if this.openingTime}}
+                                <div class="flex items-center text-gray-600 mb-4">
+                                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                    </svg>
+                                    <span>{{this.openingTime}} - {{this.closingTime}}</span>
+                                </div>
+                            {{/if}}
+
+                            <a 
+                                href="/client/commerce/{{this.id}}/catalog" 
+                                class="w-full bg-orange-500 text-white py-3 px-4 rounded-lg font-semibold hover:bg-orange-600 transition duration-200 flex items-center justify-center space-x-2"
+                            >
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
+                                </svg>
+                                <span>Ver Menú</span>
+                            </a>
+                        </div>
+                    </div>
+                {{/each}}
+            </div>
+        {{else}}
+            <div class="bg-white rounded-xl shadow-lg p-12 text-center">
+                <div class="text-6xl text-gray-300 mb-6">🔍</div>
+                <h3 class="text-2xl font-bold text-gray-800 mb-4">
+                    {{#if searchTerm}}
+                        No se encontraron comercios
+                    {{else}}
+                        No hay comercios disponibles
+                    {{/if}}
+                </h3>
+                <p class="text-gray-600 mb-8">
+                    {{#if searchTerm}}
+                        No se encontraron comercios que coincidan con "{{searchTerm}}" en {{commerceType.name}}.
+                    {{else}}
+                        Actualmente no hay comercios registrados de tipo {{commerceType.name}}.
+                    {{/if}}
+                </p>
+                {{#if searchTerm}}
+                    <a 
+                        href="/client/commerces?type={{commerceType.id}}" 
+                        class="bg-orange-500 text-white px-6 py-3 rounded-lg font-semibold hover:bg-orange-600 transition duration-200"
+                    >
+                        Ver todos los comercios
+                    </a>
+                {{else}}
+                    <a 
+                        href="/client/home" 
+                        class="bg-orange-500 text-white px-6 py-3 rounded-lg font-semibold hover:bg-orange-600 transition duration-200"
+                    >
+                        ← Volver al inicio
+                    </a>
+                {{/if}}
+            </div>
+        {{/if}}
+    </div>
+</div>

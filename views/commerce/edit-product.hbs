@@ -1,0 +1,55 @@
+<div class="max-w-3xl mx-auto mt-6">
+  <h1 class="text-3xl font-bold text-orange-600 mb-6">
+    {{#if product}}Editar Producto{{else}}Crear Producto{{/if}}
+  </h1>
+
+  <form action="{{#if product}}/commerce/products/{{product.id}}/edit{{else}}/commerce/products/create{{/if}}" method="POST" enctype="multipart/form-data" class="space-y-6 bg-white p-6 rounded-lg shadow border border-gray-200">
+    <div>
+      <label for="name" class="block font-semibold mb-1">Nombre:</label>
+      <input type="text" id="name" name="name" value="{{#if product}}{{product.name}}{{else}}{{formData.name}}{{/if}}" required class="border rounded px-3 py-2 w-full" />
+    </div>
+
+    <div>
+      <label for="description" class="block font-semibold mb-1">Descripción:</label>
+      <textarea id="description" name="description" required class="border rounded px-3 py-2 w-full">{{#if product}}{{product.description}}{{else}}{{formData.description}}{{/if}}</textarea>
+    </div>
+
+    <div>
+      <label for="price" class="block font-semibold mb-1">Precio:</label>
+      <input type="number" step="0.01" id="price" name="price" value="{{#if product}}{{product.price}}{{else}}{{formData.price}}{{/if}}" required class="border rounded px-3 py-2 w-full" />
+    </div>
+
+    <div>
+      <label for="categoryId" class="block font-semibold mb-1">Categoría:</label>
+      <select id="categoryId" name="categoryId" required class="border rounded px-3 py-2 w-full">
+        <option value="">-- Seleccionar Categoría --</option>
+        {{#each categories}}
+          <option value="{{this.id}}" {{#if this.selected}}selected{{/if}}>
+            {{this.name}}
+          </option>
+        {{/each}}
+      </select>
+    </div>
+
+    <div>
+      <label for="image" class="block font-semibold mb-1">Imagen {{#if product}}(dejar vacío para no cambiar){{/if}}:</label>
+      <input type="file" id="image" name="image" accept="image/*" {{#unless product}}required="required"{{/unless}} class="border rounded px-3 py-2 w-full" />
+    </div>
+
+    {{#if product}}
+      {{#if product.image}}
+        <div>
+          <label class="block font-semibold mb-1">Imagen actual:</label>
+          <img src="{{product.image}}" alt="Imagen actual" class="w-40 h-40 object-contain rounded" />
+        </div>
+      {{/if}}
+    {{/if}}
+
+    <div class="flex space-x-4 mt-4">
+      <button type="submit" class="bg-orange-500 hover:bg-orange-600 text-white px-6 py-2 rounded font-semibold transition">
+        {{#if product}}Guardar Cambios{{else}}Crear Producto{{/if}}
+      </button>
+      <a href="/commerce/products" class="inline-block px-6 py-2 text-orange-600 hover:underline">← Cancelar</a>
+    </div>
+  </form>
+</div>

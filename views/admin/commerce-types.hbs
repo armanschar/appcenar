@@ -1,0 +1,47 @@
+<div class="max-w-6xl mx-auto px-4">
+  <div class="flex justify-between items-center mb-6">
+    <h1 class="text-3xl font-bold">Mantenimiento de Tipos de Comercios</h1>
+    <div class="flex px-2 py-2"> 
+    <a href="/admin/tipos-comercios/crear" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+      Crear nuevo tipo
+    </a>
+    </div>
+  </div>
+
+  <table class="w-full border border-gray-300 rounded-lg overflow-hidden">
+    <thead class="bg-gray-100">
+      <tr>
+        <th class="px-4 py-2 text-left">Icono</th>
+        <th class="px-4 py-2 text-left">Nombre</th>
+        <th class="px-4 py-2 text-left">Descripción</th>
+        <th class="px-4 py-2 text-left">Cantidad de Comercios</th>
+        <th class="px-4 py-2 text-center">Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each tipos}}
+      <tr class="border-t border-gray-200">
+        <td class="px-4 py-2">
+          <img src="{{this.icon}}" alt="{{this.name}}" class="h-12 w-12 object-contain">
+        </td>
+        <td class="px-4 py-2">{{this.name}}</td>
+        <td class="px-4 py-2">{{this.description}}</td>
+        <td class="px-4 py-2">{{this.cantidadComercios}}</td>
+        <td class="px-4 py-2 text-center">
+          <a href="/admin/tipos-comercios/editar/{{this.id}}" class="bg-green-500 text-white px-3 py-1 rounded hover:bg-green-600">Editar</a>
+          <a href="/admin/tipos-comercios/eliminar/{{this.id}}" class="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600">Eliminar</a>
+        </td>
+      </tr>
+      {{/each}}
+    </tbody>
+  </table>
+</div>
+
+<div class="max-w-6xl mx-auto px-4 mt-4">
+  <div class="text-left">
+    <a href="/admin/dashboard" 
+       class="bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded inline-block transition-colors duration-200">
+      ← Volver al Dashboard
+    </a>
+  </div>
+</div>
